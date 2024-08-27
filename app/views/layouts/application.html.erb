@@ -13,10 +13,10 @@
   </head>
 
   <body>
-    <%= render 'layouts/header' %>
+    <%= render 'layouts/header', user: current_user, book: @book %>
     <main>
       <%= yield %>
     </main>
-    <%= render 'layouts/footer' %> 
+    <%= render 'layouts/footer', user: @user, book: @book %> 
   </body>
 </html>
