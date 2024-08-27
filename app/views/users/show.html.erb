@@ -4,19 +4,21 @@
 	    <h2>User info</h2>
 	    <table class='table'>
 	      <tr>
-	        <%= image_tag 'default-image.jpg' %>
+	         <%= image_tag @user.profile_image.variant(resize: "100x100"), alt: @user.name if @user.profile_image.attached? %>
 	      </tr>
 	      <tr>
 	        <th>name</th>
-	        
+	        <th><%= @user.name %></th>
 	      </tr>
 	      <tr>
 	        <th>introduction</th>
-	        <th></th>  <!-- 固定値になっているので変数を使いましょう -->
+	        <th><%= @user.introduction %></th>
 	      </tr>
-	    </table>　
+	     </table>
 	    <div class='row'>
-	      
+	      <%= link_to edit_user_path(@user), class: "btn btn-outline-secondary btn-block" do %>
+          <i class="fa-solid fa-user-gear"></i>
+        <% end %>
 	    </div>
 	    <h2 class="mt-3">New book</h2>
 	      <%= form_with model: @book, local: true do |form| %>
@@ -37,7 +39,6 @@
 	  </div>
 	  <div class='col-md-8 offset-md-1'>
 	    <h2>Books</h2>
-	    <!-- 投稿した書籍一覧表示を作成しましょう。 -->
 	    <table class='table table-hover table-inverse'>
 	      <thead>
 	        <tr>
@@ -47,7 +48,16 @@
 	          <th colspan="3"></th>
 	        </tr>
 	      </thead>
-	      <tbody></tbody>
+	      <tbody>
+	      	<% @books.each do |b| %>
+	      	  <tr>
+	      	    <td><%= image_tag b.user.get_profile_image.variant(resize_to_limit: [100, 100]).processed, alt: "Profile Image" %></td>
+	      	    <td><%= link_to b.title, book_path(b) %></td>
+	      	    <td><%= b.body %></td>
+	      	  </tr>
+	      	<% end %>
+	      	
+	      </tbody>
 	    </table>
 	  </div>
 	</div>

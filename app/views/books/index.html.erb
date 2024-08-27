@@ -1,2 +1,33 @@
-<h1>Books#index</h1>
-<p>Find me in app/views/books/index.html.erb</p>
+<div class='container px-5 px-sm-0'>
+	<div class='row'>
+	  <div class='col-md-3'>
+	    <%= render 'layouts/side', user: @user, book: @book %>
+	  </div>
+	  <div class="col-md-8 offset-md-1">
+	      <h2>Books</h2>
+	      <table class='table table-hover table-inverse'>
+	        <thead>
+	          <tr>
+	            <th></th>
+	            <th>Title</th>
+	            <th>Opinion</th>
+	            <th colspan="3"></th>
+	          </tr>
+	        </thead>
+	        <tbody>
+	          <% @books.each do |b| %>
+	            <tr>
+	              <td>
+	                <%= image_tag b.user.get_profile_image.variant(resize_to_limit: [100, 100]).processed, alt: "Profile Image" %>
+	               
+	              </td>
+	                
+	              <td><%= link_to b.title, book_path(b) %></td>
+	              <td><%= b.body %></td>
+	            </tr>
+	          <% end %>
+	        </tbody>
+	      </table>
+	  </div>
+	</div>
+</div>
