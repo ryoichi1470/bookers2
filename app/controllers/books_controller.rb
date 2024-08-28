@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-   before_action :set_user, only: [:new, :create]
+   before_action :set_user, only: [:new, :create ]
 
   def index
     @book = Book.new
@@ -30,6 +30,9 @@ class BooksController < ApplicationController
 
   def edit
     @book = Book.find(params[:id])
+    unless @book.user == current_user
+      redirect_to books_path
+    end
   end
 
   def update
