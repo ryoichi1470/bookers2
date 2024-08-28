@@ -1,4 +1,6 @@
 class BooksController < ApplicationController
+   before_action :set_user, only: [:new, :create]
+
   def index
     @book = Book.new
     @books = Book.all
@@ -21,7 +23,8 @@ class BooksController < ApplicationController
       flash[:notice] = "Created successfully"
       redirect_to @book  
     else
-      render :new  
+      @books = Book.all
+      render :index
     end
   end
 
@@ -43,6 +46,11 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     @book.destroy
     redirect_to books_path 
+  end
+  
+  private 
+  def set_user
+    @user = current_user
   end
   
   def book_params
