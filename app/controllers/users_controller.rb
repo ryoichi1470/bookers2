@@ -1,6 +1,16 @@
 class UsersController < ApplicationController
+  def create
+    @user = User.new(user_params)
+    if @user.save
+    flash[:notice] = "You have signed up successfully"
+    redirect_to user_path(@user)
+    else
+    render :new
+    end 
+  end
+  
   def index
-    @user = User.all
+    @users = User.all
     @user = current_user
   end
 
@@ -12,11 +22,18 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    unless @user== current_user.id
+    redirect_to user_path
+    end
   end
   
   def update
     @user = User.find(params[:id])
+    unless @user == current_user.id
+    redirect_to user_path
+    end
     if @user.update(user_params)
+      flash[:notice] = "Updated successfully"
       redirect_to @user
     else
       render :edit

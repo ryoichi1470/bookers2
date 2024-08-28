@@ -4,5 +4,26 @@
              <%= render 'layouts/side', user: @user, book: @book %>
         </div>
         <div class="col-md-8 offset-md-1">
+          <h2>Users</h2>
+            <table class='table table-hover table-inverse'>
+              <thead>
+	            <tr>
+	              <th>Image</th>
+	              <th>Title</th>
+	              <th></th>
+	              <th colspan="3"></th>
+	            </tr>
+	          </thead>
+	          <tbody>
+	            <% @users.each do |u| %>
+	              <tr>
+	                <td><%= image_tag u.get_profile_image.variant(resize_to_limit: [100, 100]).processed, alt: "Profile Image" %></td>
+	                <td><%= u.name %></td>
+	                <td><%= link_to 'show', user_path(u) %></td>
+	              </tr>
+	            <% end %>
+	          </tbody>
+            </table>
+        </div>
     </div>
 </div>
